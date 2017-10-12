@@ -19,7 +19,7 @@ public class LiczbyPierwsze {
 	}
 
 	
-	public void Print() {
+	public void Print() {	//wypisz liczby pierwsze
 		for (i=2; i<maxNumber; i++) {
 			if (numbers[i] != 0) {
 				System.out.println(numbers[i]+", ");
