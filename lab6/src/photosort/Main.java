@@ -16,12 +16,8 @@ public class Main {
 
 
     public static void main (String[] args) throws IndicoException, IOException {
-        Indico indico = null;
-        try {
-            indico = new Indico("ce80c3c09f3135a4a7c872c994cf0815");
-        } catch (IndicoException e) {
-            e.printStackTrace();
-        }
+        Indico indico  = new Indico("ce80c3c09f3135a4a7c872c994cf0815");
+
         String dirname = "/home/kb/Java/JavaLabs/lab6/foto";
         File folder = new File(dirname);
 
