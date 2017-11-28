@@ -23,9 +23,11 @@ public class MyPanel extends JPanel {
 
     @Override
     public void paintComponents(Graphics graphics) {
-        super.paintComponents(graphics);
+        //super.paintComponents(graphics);
+        graphics.setColor(Color.DARK_GRAY);
         for (Shape shape : shapes_) {
             shape.draw(graphics);
         }
     }
+
 }

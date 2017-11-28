@@ -3,7 +3,7 @@ package shape;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class Shape extends Component{
+public abstract class Shape extends JComponent{
     protected String name;
     protected double area;
     protected int x;
