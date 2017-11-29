@@ -12,7 +12,7 @@ public class MyPanel extends JPanel {
 
     MyPanel(){
         super();
-        setBackground(Color.YELLOW);
+        this.setBackground(Color.YELLOW);
         shapes_.add(new Circle(5));
         shapes_.add(new Triangle(3));
         shapes_.add(new Square(4));
@@ -22,9 +22,9 @@ public class MyPanel extends JPanel {
     }
 
     @Override
-    public void paintComponents(Graphics graphics) {
-        //super.paintComponents(graphics);
-        graphics.setColor(Color.DARK_GRAY);
+    public void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
+        //graphics.setColor(Color.DARK_GRAY);
         for (Shape shape : shapes_) {
             shape.draw(graphics);
         }
