@@ -62,9 +62,9 @@ public class PolyDraw extends Application {
         plot.setWidth(600);
         //plot.setLayoutX(200);
         //plot.setLayoutY(20);
-        GraphicsContext gc = plot.getGraphicsContext2D();
-        gc.setFill(Color.GRAY);
-        gc.fillOval(0, 0, 30, 30);
+        //GraphicsContext gc = plot.getGraphicsContext2D();
+        //gc.setFill(Color.GRAY);
+        //gc.fillOval(0, 0, 30, 30);
 
         root = new Group(coefficients, sampling, min, max, calculate, plot);
         scene = new Scene(root, 800, 400);
