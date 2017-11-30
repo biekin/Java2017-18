@@ -2,10 +2,10 @@ package shape;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public abstract class Shape extends JComponent{
     protected String name;
-    protected double area;
     protected int x;
     protected int y;
     protected int height;
@@ -48,5 +48,11 @@ public abstract class Shape extends JComponent{
     public int getHeight() {
         return height;
     }
+
+    public void changePosition(int x, int y) {
+        setX(x);
+        setY(y);
+    }
+
 
 }

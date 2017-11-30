@@ -4,10 +4,12 @@ import java.awt.*;
 
 public class Square extends Shape {
 
-    public Square (double a) {
+    public Square () {
         super();
-        x=10; y= 10; height=40; width=40;
-        area=a*a;
+        width = 80;
+        height = 80;
+        x = 200;
+        y = 200;
     }
 
     @Override

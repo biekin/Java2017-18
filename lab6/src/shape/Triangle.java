@@ -4,10 +4,11 @@ import java.awt.*;
 
 public class Triangle extends Shape {
 
-    public Triangle(double h) {
-        super();
-        area=0.5*h*h;
-        x=100; y= 100; height=40; width=40;
+    public Triangle() {
+        width = 37;
+        height = 37;
+        x = 30;
+        y = 30;
     }
 
     @Override
