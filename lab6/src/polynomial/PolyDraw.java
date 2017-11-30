@@ -31,15 +31,21 @@ public class PolyDraw extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         coefficients = new TextField();
-        coefficients.setLayoutX(50);
+        coefficients.setLayoutX(20);
         coefficients.setLayoutY(310);
         sampling = new TextField();
-        sampling.setLayoutX(300);
+        sampling.setLayoutX(220);
         sampling.setLayoutY(310);
+        min = new TextField();
+        max = new TextField();
+        min.setLayoutX(420);
+        max.setLayoutX(420);
+        min.setLayoutY(310);
+        max.setLayoutY(340);
 
 
         calculate = new Button("calculate");
-        calculate.setLayoutX(550);
+        calculate.setLayoutX(620);
         calculate.setLayoutY(310);
 
         calculate.setOnAction(new EventHandler<ActionEvent>() {
@@ -60,7 +66,7 @@ public class PolyDraw extends Application {
         gc.setFill(Color.GRAY);
         gc.fillOval(0, 0, 30, 30);
 
-        root = new Group(coefficients, sampling, calculate, plot);
+        root = new Group(coefficients, sampling, min, max, calculate, plot);
         scene = new Scene(root, 800, 400);
         stage.setTitle("Polynomial");
         stage.setScene(scene);
