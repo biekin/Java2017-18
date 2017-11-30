@@ -32,10 +32,21 @@ public class Drawer{
     }
 
     private void calculateX(){
-
+        Double x = min;
+        while (x<max){
+            X.add(x);
+            x=x+samp;
+        }
+        X.add(max);
     }
 
     private void calculateY(){
-
+        for (Double x : X){
+            Double y = 0.;
+            for (int i=0; i<coeffs.length; i++){
+                y+=coeffs[i]*Math.pow(x, i);
+            }
+            Y.add(y);
+        }
     }
 }
