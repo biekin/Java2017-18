@@ -121,7 +121,6 @@ public class Main extends Application{
         scene=new Scene(root);
 
         stage.setTitle("PhotoSort");
-        root.getChildren().add(list);
         root.getChildren().add(browse);
         stage.setScene(scene);
         stage.setHeight(500);
@@ -136,6 +135,7 @@ public class Main extends Application{
         list.setMaxSize(200,80);
         list.setLayoutY(0);
         list.setLayoutX(0);
+        root.getChildren().add(list);
         list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){
@@ -148,7 +148,7 @@ public class Main extends Application{
                     }
                     ImageView imageView = new ImageView(image);
                     imageView.setLayoutX(10);
-                    imageView.setLayoutY(300);
+                    imageView.setLayoutY(250);
                     root.getChildren().add(imageView);
 
                     ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList
