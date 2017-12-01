@@ -26,6 +26,7 @@ public class Main extends Application{
     Scene scene;
     File[] FotFiles;
     List<String> photos = new ArrayList<String>();
+    ListView<String> list = new ListView<>();
 
 
     public static void main (String[] args) throws IndicoException, IOException {
@@ -98,8 +99,6 @@ public class Main extends Application{
         });
 
 
-        ListView<String> list = new ListView<>();
-
         root=new StackPane();
         scene=new Scene(root);
 
@@ -115,6 +114,6 @@ public class Main extends Application{
     }
 
     public void displayPhoto(){
-
+        list.setItems(FXCollections.observableArrayList(photos));
     }
 }
