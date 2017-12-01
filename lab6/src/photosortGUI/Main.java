@@ -18,6 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -33,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main extends Application{
-    StackPane root;
+    Pane root;
     Scene scene;
     File[] FotFiles;
     List<String> photos = new ArrayList<String>();
@@ -94,6 +95,7 @@ public class Main extends Application{
     public void start(Stage stage) throws Exception {
 
         Button browse=new Button("browse");
+        browse.setLayoutX(700);
         browse.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -115,7 +117,7 @@ public class Main extends Application{
         });
 
 
-        root=new StackPane();
+        root=new Pane();
         scene=new Scene(root);
 
         stage.setTitle("PhotoSort");
