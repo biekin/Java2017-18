@@ -2,6 +2,8 @@ package photosortGUI;
 
 import io.indico.api.utils.IndicoException;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +13,7 @@ import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -27,6 +30,9 @@ public class Main extends Application{
     File[] FotFiles;
     List<String> photos = new ArrayList<String>();
     ListView<String> list = new ListView<>();
+    String photo;
+    Image image;
+    File selectedDirectory;
 
 
     public static void main (String[] args) throws IndicoException, IOException {
@@ -86,7 +92,7 @@ public class Main extends Application{
                 chooser.setTitle("JavaFX Projects");
                 File defaultDirectory = new File("/home/kb/Java/JavaLabs/lab6/foto");
                 chooser.setInitialDirectory(defaultDirectory);
-                File selectedDirectory = chooser.showDialog(stage);
+                selectedDirectory = chooser.showDialog(stage);
 
                 FotFiles = selectedDirectory.listFiles();
                 for (File f : FotFiles)
@@ -115,5 +121,13 @@ public class Main extends Application{
 
     public void displayPhoto(){
         list.setItems(FXCollections.observableArrayList(photos));
+        list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                photo=newValue;
+                System.out.println(photo);
+                image=new Image("/home/kb/Java/JavaLabs/lab6/foto/"+selectedDirectory.getName()+"/"+newValue);
+            }
+        });
     }
 }
