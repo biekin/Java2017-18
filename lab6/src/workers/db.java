@@ -33,8 +33,6 @@ public class db {
             try {
                 connect();
                 stmt = conn.createStatement();
-
-                // Wyciagamy wszystkie pola z kolumny name
                 // znajdujące się w tabeli users
                 rs = stmt.executeQuery("SELECT * from workers WHERE  pesel = " + worker.getPesel());
 
