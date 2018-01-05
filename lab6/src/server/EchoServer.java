@@ -1,10 +1,82 @@
 package server;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+
 import java.io.*;
 import java.net.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EchoServer {
+    static String pass = "zaq";
+    static int conn_token = 0;
+
+    static String serverFiles = "/home/kb/Java/JavaLabs/lab6/src/server/ServerFiles";
+
+    static String inputLine;
+    static Pattern pat_login = Pattern.compile("LOGIN\\s*(.*);(.*)\\s*");
+    static Pattern pat_logout = Pattern.compile("LOGOUT\\s(\\d{10})");
+    static Pattern pat_ls = Pattern.compile("LS\\s*(\\d{10})\\s*");
+    static Pattern pat_get = Pattern.compile("GET\\s*(\\d{10})\\s*(.*)");
+
+    static Socket clientSocket = null;
+    static ServerSocket serverSocket = null;
+
+
+    public static String WhatUSayin(BufferedReader in, PrintWriter out) throws IOException {
+
+//        System.out.println("JETEM");
+
+        inputLine=in.readLine();
+
+        Matcher mat_login = pat_login.matcher(inputLine);
+        Matcher mat_logout = pat_logout.matcher(inputLine);
+        Matcher mat_ls = pat_ls.matcher(inputLine);
+        Matcher mat_get = pat_get.matcher(inputLine);
+
+        if (mat_login.matches()) {
+            String pass_guess = mat_login.group(2);
+            // out.println(pass_guess);
+            if (pass_guess.equals(pass)) {
+                conn_token = conn_token + 1;
+                return String.format("%010d", conn_token);
+
+            }else return "wrong pass";
+
+        } else if (mat_logout.matches()) {
+            return "logout";
+
+        } else if (mat_ls.matches()) {
+            File folder = new File(serverFiles);
+            File[] listOfFiles = folder.listFiles();
+            String output="";
+            for(int i=0; i<listOfFiles.length; i++)
+            {
+                output+=listOfFiles[i].getName()+";";
+            }
+            return output;
+
+        } else if (mat_get.matches()) {
+            return "get";
+
+        } else if (inputLine.equals("exit")) return "exit";
+
+        return "que";
+    }
+
+    public static void listen() {
+        try {
+            clientSocket = serverSocket.accept();
+            System.out.println("slucham");
+        } catch (IOException e) {
+            System.out.println("Accept failed: 6666");
+            System.exit(-1);
+        }
+
+    }
+
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = null;
+
         try {
             serverSocket = new ServerSocket(6666);
         } catch (IOException e) {
@@ -12,26 +84,41 @@ public class EchoServer {
             System.exit(-1);
         }
 
-        Socket clientSocket = null;
-        try {
-            clientSocket = serverSocket.accept();
-        } catch (IOException e) {
-            System.out.println("Accept failed: 6666");
-            System.exit(-1);
-        }
-        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(
-                        clientSocket.getInputStream()));
-        String inputLine;
+        while (true) {
+            listen();
 
-        while ((inputLine = in.readLine()) != null) {
-            out.println(inputLine);
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            clientSocket.getInputStream()));
+
+
+            String str = WhatUSayin(in,out);
+            out.println(str);
+            System.out.println(1);
+
+            if(str.equals("exit")) {
+                System.out.println(2);
+                out.close();
+                in.close();
+                clientSocket.close();
+
+                break;
+            }
+            System.out.println(20);
+            out.close();
+            System.out.println(21);
+            in.close();
+            System.out.println(22);
+            clientSocket.close();
+            System.out.println(23);
+
+            System.out.println(3);
         }
-        out.close();
-        in.close();
-        clientSocket.close();
+
+        //clientSocket.close();
         serverSocket.close();
+
 
     }
 }
