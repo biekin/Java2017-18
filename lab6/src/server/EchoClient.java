@@ -42,8 +42,7 @@ public class EchoClient {
                 new InputStreamReader(System.in));
 
         String serverOutput="";
-        Pattern pat_ID = Pattern.compile("\\s*\\d{10}\\s*");
-        Matcher mat_ID = pat_ID.matcher(serverOutput);
+        Pattern pat_ID = Pattern.compile("(\\d{10})");
 
         try {
 
@@ -51,7 +50,7 @@ public class EchoClient {
 
             BufferedReader b = new BufferedReader(new FileReader(f));
 
-            String readLine = "";
+            String readLine;
 
             System.out.println("Reading file using Buffered Reader");
 
@@ -59,31 +58,35 @@ public class EchoClient {
                 //System.out.println(readLine);
                 connect();
                 serverOutput = ToServer("LOGIN aaa;"+readLine, in, out);
+                Matcher mat_ID = pat_ID.matcher(serverOutput);
                 if(mat_ID.matches()){
                     ID=serverOutput;
                     System.out.println(ID);
                     System.out.println("SUKCESS");
                     break;
                 }
-
-
+                out.close();
+                in.close();
             }
-
-            out.close();
-            in.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        while (!serverOutput.equals("exit")){
+            connect();
+            System.out.println("Type a message: ");
+            String userInput = stdIn.readLine();
+            serverOutput=ToServer(userInput,in,out);
+            out.println(userInput);
+
+        }
 
 //        while (!mat_ID.matches()) {
 //            connect();
 //            serverOutput = ToServer("", in, out);
 //
 //        }
-
-        //TODO reconnect
 
         out.close();
         in.close();

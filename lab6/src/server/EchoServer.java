@@ -27,6 +27,8 @@ public class EchoServer {
 
 //        System.out.println("JETEM");
 
+        String userID;
+
         inputLine=in.readLine();
 
         Matcher mat_login = pat_login.matcher(inputLine);
@@ -44,9 +46,11 @@ public class EchoServer {
             }else return "wrong pass";
 
         } else if (mat_logout.matches()) {
+            userID=mat_logout.group(1);
             return "logout";
 
         } else if (mat_ls.matches()) {
+            userID=mat_ls.group(1);
             File folder = new File(serverFiles);
             File[] listOfFiles = folder.listFiles();
             String output="";
@@ -57,6 +61,7 @@ public class EchoServer {
             return output;
 
         } else if (mat_get.matches()) {
+            userID=mat_get.group(1);
             return "get";
 
         } else if (inputLine.equals("exit")) return "exit";
