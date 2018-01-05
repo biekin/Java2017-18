@@ -10,6 +10,7 @@ public class DB {
     private Connection conn = null;
     private Statement stmt = null;
     private ResultSet rs = null;
+
     public void connect(){
         try {
             // load a properties file
@@ -67,6 +68,12 @@ public class DB {
     public void FindByName(String surname){
         try {
             connect();
+            if(conn.isClosed()) connect();
+            if(conn.isClosed()) connect();
+            if(conn.isClosed()){
+                System.out.println("nie udalo sie polaczyc");
+                System.exit(0);
+            }
             stmt = conn.createStatement();
 
             // Wyciagamy wszystkie pola z kolumny name

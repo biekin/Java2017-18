@@ -4,6 +4,7 @@ import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -125,5 +126,41 @@ public class EchoServer {
         serverSocket.close();
 
 
+    }
+
+    class SockReader implements Runnable {
+        private Scanner in;
+        private PrintStream out;
+        private Socket s;
+
+        public SockReader(Socket s) throws IOException {
+            this(s.getInputStream(),s.getOutputStream());
+            this.s = s;
+        }
+
+        public SockReader(InputStream input,OutputStream output) {
+            in = new Scanner(input);
+            out = new PrintStream(output);
+        }
+
+        private void msg(String msg) {
+            System.out.print("SRV: ");
+            System.out.println(msg);
+        }
+        public void run() {
+            msg("serving new connection");
+            while( (!Thread.currentThread().isInterrupted()) && in.hasNextLine() ) {
+                String line = in.nextLine();
+                msg(line);
+                out.println(line);
+            }
+            try {
+                out.close();
+                s.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            msg("connection closed");
+        }
     }
 }
